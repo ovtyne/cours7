@@ -9,4 +9,5 @@ djangorestframework-simplejwt
 coverage
 requests
 celery
-
+django-cors-headers
+django_celery_beat
