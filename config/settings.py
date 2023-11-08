@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1-6$^&xb-vg04(_88%=5d+syfc4%#ce57a0^fi!6f%cu%r8*lg'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'users',
+    'habits',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +128,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == 'True'
+
+if CACHE_ENABLED:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': os.path.join(BASE_DIR, 'service_site_cache')
+        }
+    }
