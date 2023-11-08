@@ -7,4 +7,6 @@ djangorestframework
 drf_yasg
 djangorestframework-simplejwt
 coverage
+requests
+celery
 

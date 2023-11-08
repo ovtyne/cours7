@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -142,3 +143,30 @@ if CACHE_ENABLED:
             'LOCATION': os.path.join(BASE_DIR, 'service_site_cache')
         }
     }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_TIMEZONE = "Australia/Tasmania"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'send_notification': {
+        'task': 'habits.tasks.check_time',
+        'schedule': timedelta(minutes=1),
+    },
+}
+
+BOT_API = os.getenv('BOT_API')
+BOT_API_KEY = os.getenv('BOT_API_KEY')
+CHAT_ID = os.getenv('CHAT_ID')

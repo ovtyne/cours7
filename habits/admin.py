@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from habits.models import HealthyHabit, PleasantHabit
+
+
+@admin.register(HealthyHabit)
+class AdminHealthyHabit(admin.ModelAdmin):
+    list_display = ('user', 'action', 'related_habit', 'reward')
+
+
+@admin.register(PleasantHabit)
+class AdminPleasantHabit(admin.ModelAdmin):
+    list_display = ('user', 'action')
