@@ -4,4 +4,5 @@ Habits_Tracker
 Команды:
 
 docker-compose up --build
+
 Ctrl + C - выход.
